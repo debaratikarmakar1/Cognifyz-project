@@ -1,0 +1,386 @@
+LEVEL - 3
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+ns
+import seaborn as sns
+df = pd.read_csv('Dataset .csv')
+print(df)
+      Restaurant ID           Restaurant Name  Country Code              City  \
+0           6317637          Le Petit Souffle           162       Makati City   
+1           6304287          Izakaya Kikufuji           162       Makati City   
+2           6300002    Heat - Edsa Shangri-La           162  Mandaluyong City   
+3           6318506                      Ooma           162  Mandaluyong City   
+4           6314302               Sambo Kojin           162  Mandaluyong City   
+...             ...                       ...           ...               ...   
+9546        5915730               Naml۱ Gurme           208         ��stanbul   
+9547        5908749              Ceviz A��ac۱           208         ��stanbul   
+9548        5915807                     Huqqa           208         ��stanbul   
+9549        5916112               A���k Kahve           208         ��stanbul   
+9550        5927402  Walter's Coffee Roastery           208         ��stanbul   
+
+                                                Address  \
+0     Third Floor, Century City Mall, Kalayaan Avenu...   
+1     Little Tokyo, 2277 Chino Roces Avenue, Legaspi...   
+2     Edsa Shangri-La, 1 Garden Way, Ortigas, Mandal...   
+3     Third Floor, Mega Fashion Hall, SM Megamall, O...   
+4     Third Floor, Mega Atrium, SM Megamall, Ortigas...   
+...                                                 ...   
+9546  Kemanke�� Karamustafa Pa��a Mahallesi, R۱ht۱m ...   
+9547  Ko��uyolu Mahallesi, Muhittin ��st�_nda�� Cadd...   
+9548  Kuru�_e��me Mahallesi, Muallim Naci Caddesi, N...   
+9549  Kuru�_e��me Mahallesi, Muallim Naci Caddesi, N...   
+9550  Cafea��a Mahallesi, Bademalt۱ Sokak, No 21/B, ...   
+
+                                        Locality  \
+0      Century City Mall, Poblacion, Makati City   
+1     Little Tokyo, Legaspi Village, Makati City   
+2     Edsa Shangri-La, Ortigas, Mandaluyong City   
+3         SM Megamall, Ortigas, Mandaluyong City   
+4         SM Megamall, Ortigas, Mandaluyong City   
+...                                          ...   
+9546                                    Karak�_y   
+9547                                   Ko��uyolu   
+9548                                 Kuru�_e��me   
+9549                                 Kuru�_e��me   
+9550                                        Moda   
+
+                                       Locality Verbose   Longitude  \
+0     Century City Mall, Poblacion, Makati City, Mak...  121.027535   
+1     Little Tokyo, Legaspi Village, Makati City, Ma...  121.014101   
+2     Edsa Shangri-La, Ortigas, Mandaluyong City, Ma...  121.056831   
+3     SM Megamall, Ortigas, Mandaluyong City, Mandal...  121.056475   
+4     SM Megamall, Ortigas, Mandaluyong City, Mandal...  121.057508   
+...                                                 ...         ...   
+9546                                Karak�_y, ��stanbul   28.977392   
+9547                               Ko��uyolu, ��stanbul   29.041297   
+9548                             Kuru�_e��me, ��stanbul   29.034640   
+9549                             Kuru�_e��me, ��stanbul   29.036019   
+9550                                    Moda, ��stanbul   29.026016   
+
+       Latitude                          Cuisines  ...          Currency  \
+0     14.565443        French, Japanese, Desserts  ...  Botswana Pula(P)   
+1     14.553708                          Japanese  ...  Botswana Pula(P)   
+2     14.581404  Seafood, Asian, Filipino, Indian  ...  Botswana Pula(P)   
+3     14.585318                   Japanese, Sushi  ...  Botswana Pula(P)   
+4     14.584450                  Japanese, Korean  ...  Botswana Pula(P)   
+...         ...                               ...  ...               ...   
+9546  41.022793                           Turkish  ...  Turkish Lira(TL)   
+9547  41.009847   World Cuisine, Patisserie, Cafe  ...  Turkish Lira(TL)   
+9548  41.055817            Italian, World Cuisine  ...  Turkish Lira(TL)   
+9549  41.057979                   Restaurant Cafe  ...  Turkish Lira(TL)   
+9550  40.984776                              Cafe  ...  Turkish Lira(TL)   
+
+     Has Table booking Has Online delivery Is delivering now  \
+0                  Yes                  No                No   
+1                  Yes                  No                No   
+2                  Yes                  No                No   
+3                   No                  No                No   
+4                  Yes                  No                No   
+...                ...                 ...               ...   
+9546                No                  No                No   
+9547                No                  No                No   
+9548                No                  No                No   
+9549                No                  No                No   
+9550                No                  No                No   
+
+     Switch to order menu Price range  Aggregate rating  Rating color  \
+0                      No           3               4.8    Dark Green   
+1                      No           3               4.5    Dark Green   
+2                      No           4               4.4         Green   
+3                      No           4               4.9    Dark Green   
+4                      No           4               4.8    Dark Green   
+...                   ...         ...               ...           ...   
+9546                   No           3               4.1         Green   
+9547                   No           3               4.2         Green   
+9548                   No           4               3.7        Yellow   
+9549                   No           4               4.0         Green   
+9550                   No           2               4.0         Green   
+
+     Rating text Votes  
+0      Excellent   314  
+1      Excellent   591  
+2      Very Good   270  
+3      Excellent   365  
+4      Excellent   229  
+...          ...   ...  
+9546   Very Good   788  
+9547   Very Good  1034  
+9548        Good   661  
+9549   Very Good   901  
+9550   Very Good   591  
+
+[9551 rows x 21 columns]
+df.head()
+Restaurant ID	Restaurant Name	Country Code	City	Address	Locality	Locality Verbose	Longitude	Latitude	Cuisines	...	Currency	Has Table booking	Has Online delivery	Is delivering now	Switch to order menu	Price range	Aggregate rating	Rating color	Rating text	Votes
+0	6317637	Le Petit Souffle	162	Makati City	Third Floor, Century City Mall, Kalayaan Avenu...	Century City Mall, Poblacion, Makati City	Century City Mall, Poblacion, Makati City, Mak...	121.027535	14.565443	French, Japanese, Desserts	...	Botswana Pula(P)	Yes	No	No	No	3	4.8	Dark Green	Excellent	314
+1	6304287	Izakaya Kikufuji	162	Makati City	Little Tokyo, 2277 Chino Roces Avenue, Legaspi...	Little Tokyo, Legaspi Village, Makati City	Little Tokyo, Legaspi Village, Makati City, Ma...	121.014101	14.553708	Japanese	...	Botswana Pula(P)	Yes	No	No	No	3	4.5	Dark Green	Excellent	591
+2	6300002	Heat - Edsa Shangri-La	162	Mandaluyong City	Edsa Shangri-La, 1 Garden Way, Ortigas, Mandal...	Edsa Shangri-La, Ortigas, Mandaluyong City	Edsa Shangri-La, Ortigas, Mandaluyong City, Ma...	121.056831	14.581404	Seafood, Asian, Filipino, Indian	...	Botswana Pula(P)	Yes	No	No	No	4	4.4	Green	Very Good	270
+3	6318506	Ooma	162	Mandaluyong City	Third Floor, Mega Fashion Hall, SM Megamall, O...	SM Megamall, Ortigas, Mandaluyong City	SM Megamall, Ortigas, Mandaluyong City, Mandal...	121.056475	14.585318	Japanese, Sushi	...	Botswana Pula(P)	No	No	No	No	4	4.9	Dark Green	Excellent	365
+4	6314302	Sambo Kojin	162	Mandaluyong City	Third Floor, Mega Atrium, SM Megamall, Ortigas...	SM Megamall, Ortigas, Mandaluyong City	SM Megamall, Ortigas, Mandaluyong City, Mandal...	121.057508	14.584450	Japanese, Korean	...	Botswana Pula(P)	Yes	No	No	No	4	4.8	Dark Green	Excellent	229
+5 rows × 21 columns
+
+df.columns
+Index(['Restaurant ID', 'Restaurant Name', 'Country Code', 'City', 'Address',
+       'Locality', 'Locality Verbose', 'Longitude', 'Latitude', 'Cuisines',
+       'Average Cost for two', 'Currency', 'Has Table booking',
+       'Has Online delivery', 'Is delivering now', 'Switch to order menu',
+       'Price range', 'Aggregate rating', 'Rating color', 'Rating text',
+       'Votes'],
+      dtype='object')
+df.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 9551 entries, 0 to 9550
+Data columns (total 21 columns):
+ #   Column                Non-Null Count  Dtype  
+---  ------                --------------  -----  
+ 0   Restaurant ID         9551 non-null   int64  
+ 1   Restaurant Name       9551 non-null   object 
+ 2   Country Code          9551 non-null   int64  
+ 3   City                  9551 non-null   object 
+ 4   Address               9551 non-null   object 
+ 5   Locality              9551 non-null   object 
+ 6   Locality Verbose      9551 non-null   object 
+ 7   Longitude             9551 non-null   float64
+ 8   Latitude              9551 non-null   float64
+ 9   Cuisines              9542 non-null   object 
+ 10  Average Cost for two  9551 non-null   int64  
+ 11  Currency              9551 non-null   object 
+ 12  Has Table booking     9551 non-null   object 
+ 13  Has Online delivery   9551 non-null   object 
+ 14  Is delivering now     9551 non-null   object 
+ 15  Switch to order menu  9551 non-null   object 
+ 16  Price range           9551 non-null   int64  
+ 17  Aggregate rating      9551 non-null   float64
+ 18  Rating color          9551 non-null   object 
+ 19  Rating text           9551 non-null   object 
+ 20  Votes                 9551 non-null   int64  
+dtypes: float64(3), int64(5), object(13)
+memory usage: 1.5+ MB
+df.shape
+(9551, 21)
+df.duplicated().sum()
+0
+df.drop_duplicates(inplace=True)
+reviews = df['Rating text']
+reviews
+0       Excellent
+1       Excellent
+2       Very Good
+3       Excellent
+4       Excellent
+          ...    
+9546    Very Good
+9547    Very Good
+9548         Good
+9549    Very Good
+9550    Very Good
+Name: Rating text, Length: 9551, dtype: object
+​
+TASK - 1 (Restaurant Reviews)
+df['Rating text'].value_counts()
+Average      3737
+Not rated    2148
+Good         2100
+Very Good    1079
+Excellent     301
+Poor          186
+Name: Rating text, dtype: int64
+reviews.unique()
+reviews.unique()
+array(['Excellent', 'Very Good', 'Good', 'Average', 'Not rated', 'Poor'],
+      dtype=object)
+sb.barplot(x=reviews.value_counts().index, y=reviews.value_counts().values)
+plt.show()
+plt.figure(figsize=(6, 4))
+colors = ["purple", "yellow", "blue", "green", 'maroon', 'orange']
+sns.countplot(x=df['Rating text'], palette=colors)
+plt.show()
+
+reviews.value_counts().index
+Index(['Average', 'Not rated', 'Good', 'Very Good', 'Excellent', 'Poor'], dtype='object')
+a = df['Aggregate rating'].value_counts().mean()
+a
+289.42424242424244
+df['Review Length'] = df['Cuisines'].apply(lambda x: len(str(x)))
+​
+plt.figure(figsize=(7, 5))
+sns.histplot(data=df, x='Review Length', bins=30, kde=True)
+plt.title('Distribution of Review Lengths')
+plt.xlabel('Review Length')
+plt.ylabel('Frequency')
+plt.show()
+​
+average_review_length = df['Review Length'].mean()
+print(f'Average Review Length: {average_review_length:.2f} characters')
+​
+plt.figure(figsize=(7, 5))
+sns.scatterplot(data=df, x='Aggregate rating', y='Review Length')
+plt.title('Relationship between Review Length and Ratings')
+plt.xlabel('Aggregate Rating')
+plt.ylabel('Review Length')
+plt.show()
+​
+correlation_coefficient = df[['Aggregate rating', 'Review Length']].corr().iloc[0, 1]
+print(f'Correlation Coefficient: {correlation_coefficient:.2f}')
+​
+from scipy.stats import pearsonr
+​
+correlation, p_value = pearsonr(df['Aggregate rating'], df['Review Length'])
+print(f'Correlation: {correlation:.2f}, p-value: {p_value:.4f}')
+​
+
+Average Review Length: 19.91 characters
+
+Correlation Coefficient: 0.19
+Correlation: 0.19, p-value: 0.0000
+TASK - 2 (Votes Analysis)
+restaurant_with_highest_votes = df.loc[df["Votes"].idxmax()]
+restaurant_with_lowest_votes = df.loc[df["Votes"].idxmin()]
+Restautant_votes = df.groupby(['Restaurant Name'])['Votes'].mean()
+print(Restautant_votes.max())
+print(Restautant_votes.min())
+10934.0
+0.0
+print("Restaurant with the highest number of votes:")
+print(restaurant_with_highest_votes)
+Restaurant_highest_votes = df.loc[df['Votes'].idxmax()]
+print('Restaurant with the highest vote number is:')
+print(Restaurant_highest_votes[['Restaurant Name', 'Votes']])
+print('\n')
+Restaurant_lowest_votes = df.loc[df['Votes'].idxmin()]
+print('Restaurant with the lowest vote number is:')
+print(Restaurant_lowest_votes[['Restaurant Name', 'Votes']])
+Restaurant with the highest vote number is:
+Restaurant Name     Toit
+Votes              10934
+Name: 728, dtype: object
+
+
+Restaurant with the lowest vote number is:
+Restaurant Name    Cantinho da Gula
+Votes                             0
+Name: 69, dtype: object
+df[['Votes', 'Aggregate rating']].head()
+Votes	Aggregate rating
+0	314	4.8
+1	591	4.5
+2	270	4.4
+3	365	4.9
+4	229	4.8
+correlation = df[['Votes', 'Aggregate rating']].corr()
+correlation
+Votes	Aggregate rating
+Votes	1.000000	0.313691
+Aggregate rating	0.313691	1.000000
+plt.scatter(df["Votes"], df["Aggregate rating"])
+plt.xlabel("Number of Votes")
+plt.ylabel("Aggregate rating")
+plt.title("Correlation between Number of Votes and Restaurant Rating")
+plt.show()
+
+plt.figure(figsize=(5, 4))
+sns.heatmap(correlation, annot=True)
+plt.show()
+
+TASK - 3 (Price Range vs. Online Delivery and Table Booking)
+Has 
+cross_tab = pd.crosstab(index=df['Price range'], columns=[df['Has Online delivery'], df['Has Table booking']])
+cross_tab
+Has Online delivery	No	Yes
+Has Table booking	No	Yes	No	Yes
+Price range				
+1	3743	0	700	1
+2	1711	116	1163	123
+3	624	373	140	271
+4	299	234	13	40
+price_del_book=df.groupby(by='Price range')['Has Online delivery','Has Table booking'].value_counts().reset_index(name='Values')
+price_del_book
+plt.figure(figsize=(5, 4))
+sns.heatmap(cross_tab, annot=True, cmap='cividis')
+plt.show()
+
+Has 
+df['Has Table booking'].unique()
+array(['Yes', 'No'], dtype=object)
+plt.figure(figsize=(10, 8))
+plt.bar(df["Has Online delivery"], df['Values'])
+plt.yticks(range(1,5,1))
+plt.show()
+
+Has 
+df.groupby('Has Online delivery')['Price range'].mean()
+Has Online delivery
+No     1.763380
+Yes    1.924929
+Name: Price range, dtype: float64
+df.groupby('Online_delivery')['Price range'].mean()
+Text(0.5, 1.0, 'Percentage of Restaurants with Online delivery by Price Range')
+
+Has 
+df.groupby('Has Table booking')['Price range'].mean()
+​
+Has Table booking
+No     1.636006
+Yes    3.028497
+Name: Price range, dtype: float64
+Has 
+crosstab = pd.crosstab(df['Has Table booking'], df['Price range'])
+plt.figure(figsize=(5, 4))
+sns.heatmap(crosstab, annot=True, cmap='coolwarm')
+plt.show()
+
+​
+df['Price range'].max()
+​
+4
+Has 
+df['Has Online delivery'].value_counts()
+​
+No     7100
+Yes    2451
+Name: Has Online delivery, dtype: int64
+red
+Name:(type) = int
+plt.figure(figsize=(5, 4))
+custom_palette = ["red", "yellow", "blue", "green"]
+sns.countplot(x='Price range', data=df, palette=custom_palette)
+plt.title('Distribution of Price Ranges')
+plt.xlabel('Price Range')
+plt.ylabel('Count')
+plt.show()
+
+Has 
+table_booking_proportion = df['Has Table booking'].value_counts(normalize=True)
+online_delivery_proportion = df['Has Online delivery'].value_counts(normalize=True)
+​
+print("Proportion of Restaurants Offering Table Booking:")
+print(table_booking_proportion)
+​
+print("\nProportion of Restaurants Offering Online Delivery:")
+print(online_delivery_proportion)
+​
+Proportion of Restaurants Offering Table Booking:
+No     0.878756
+Yes    0.121244
+Name: Has Table booking, dtype: float64
+
+Proportion of Restaurants Offering Online Delivery:
+No     0.743378
+Yes    0.256622
+Name: Has Online delivery, dtype: float64
+plt.figure(figsize=(12, 4))
+​
+plt.subplot(1, 2, 1)
+custom_palette = ["gold", "maroon"]
+sns.countplot(x='Price range', hue='Has Table booking', data=df, palette=custom_palette)
+plt.title('Relationship between Price Range and Table Booking')
+​
+plt.subplot(1, 2, 2)
+custom_palette = ["gold", "maroon"]
+sns.countplot(x='Price range', hue='Has Online delivery', data=df, palette=custom_palette)
+plt.title('Relationship between Price Range and Online Delivery')
+​
+plt.show()
+​
+
